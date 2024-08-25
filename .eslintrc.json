@@ -28,6 +28,7 @@
     "prettier"
   ],
   "rules": {
+    "linebreak-style": "off",
     "prefer-const": "warn",
     "no-var": "warn",
     "no-unused-vars": "warn",
