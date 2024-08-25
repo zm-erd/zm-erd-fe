@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { DM_Sans } from 'next/font/google';
 import './globals.css';
-// import { ThemeProvider } from '@/providers/theme-provider';
+import { ThemeProvider } from '@/providers/theme-provider';
 // import { ClerkProvider } from '@clerk/nextjs';
 // import ModalProvider from '@/providers/modal-provider';
 // import { Toaster } from '@/components/ui/sonner';
@@ -25,19 +25,19 @@ export default function RootLayout({
     // >
     <html lang="en">
       <body className={font.className}>
-        {/*<ThemeProvider*/}
-        {/*  attribute="class"*/}
-        {/*  defaultTheme="dark"*/}
-        {/*  enableSystem*/}
-        {/*  disableTransitionOnChange*/}
-        {/*>*/}
-        {/*<BillingProvider>*/}
-        {/*  <ModalProvider>*/}
-        {children}
-        {/*    <Toaster />*/}
-        {/*  </ModalProvider>*/}
-        {/*</BillingProvider>*/}
-        {/*</ThemeProvider>*/}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {/*<BillingProvider>*/}
+          {/*  <ModalProvider>*/}
+          {children}
+          {/*    <Toaster />*/}
+          {/*  </ModalProvider>*/}
+          {/*</BillingProvider>*/}
+        </ThemeProvider>
       </body>
     </html>
     // </ClerkProvider>
