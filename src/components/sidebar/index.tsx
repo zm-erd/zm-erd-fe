@@ -21,7 +21,7 @@ const MenuOptions = () => {
     <nav className="flex h-screen flex-col items-center justify-between gap-10 overflow-scroll px-2 py-6 dark:bg-black">
       <div className="flex flex-col items-center justify-center gap-8">
         <Link className="flex flex-row font-bold" href="/">
-          fuzzie.
+          ZmErd
         </Link>
         <TooltipProvider>
           {menuOptions.map((menuItem) => (
@@ -55,24 +55,24 @@ const MenuOptions = () => {
             </ul>
           ))}
         </TooltipProvider>
-        <Separator />
-        <div className="flex h-56 flex-col items-center gap-9 overflow-scroll rounded-full border-[1px] px-2 py-4 dark:bg-[#353346]/30">
-          <div className="relative rounded-full border-[1px] p-2 dark:border-t-[2px] dark:border-t-[#353346] dark:bg-[#353346]/70">
-            <LucideMousePointerClick className="dark:text-white" size={18} />
-            <div className="absolute -bottom-[30px] left-1/2 h-6 translate-x-[-50%] transform border-l-2 border-muted-foreground/50" />
-          </div>
-          <div className="relative rounded-full border-[1px] p-2 dark:border-t-[2px] dark:border-t-[#353346] dark:bg-[#353346]/70">
-            <GitBranch className="text-muted-foreground" size={18} />
-            <div className="absolute -bottom-[30px] left-1/2 h-6 translate-x-[-50%] transform border-l-2 border-muted-foreground/50"></div>
-          </div>
-          <div className="relative rounded-full border-[1px] p-2 dark:border-t-[2px] dark:border-t-[#353346] dark:bg-[#353346]/70">
-            <Database className="text-muted-foreground" size={18} />
-            <div className="absolute -bottom-[30px] left-1/2 h-6 translate-x-[-50%] transform border-l-2 border-muted-foreground/50"></div>
-          </div>
-          <div className="relative rounded-full border-[1px] p-2 dark:border-t-[2px] dark:border-t-[#353346] dark:bg-[#353346]/70">
-            <GitBranch className="text-muted-foreground" size={18} />
-          </div>
-        </div>
+        {/*<Separator />*/}
+        {/*<div className="flex h-56 flex-col items-center gap-9 overflow-scroll rounded-full border-[1px] px-2 py-4 dark:bg-[#353346]/30">*/}
+        {/*  <div className="relative rounded-full border-[1px] p-2 dark:border-t-[2px] dark:border-t-[#353346] dark:bg-[#353346]/70">*/}
+        {/*    <LucideMousePointerClick className="dark:text-white" size={18} />*/}
+        {/*    <div className="absolute -bottom-[30px] left-1/2 h-6 translate-x-[-50%] transform border-l-2 border-muted-foreground/50" />*/}
+        {/*  </div>*/}
+        {/*  <div className="relative rounded-full border-[1px] p-2 dark:border-t-[2px] dark:border-t-[#353346] dark:bg-[#353346]/70">*/}
+        {/*    <GitBranch className="text-muted-foreground" size={18} />*/}
+        {/*    <div className="absolute -bottom-[30px] left-1/2 h-6 translate-x-[-50%] transform border-l-2 border-muted-foreground/50"></div>*/}
+        {/*  </div>*/}
+        {/*  <div className="relative rounded-full border-[1px] p-2 dark:border-t-[2px] dark:border-t-[#353346] dark:bg-[#353346]/70">*/}
+        {/*    <Database className="text-muted-foreground" size={18} />*/}
+        {/*    <div className="absolute -bottom-[30px] left-1/2 h-6 translate-x-[-50%] transform border-l-2 border-muted-foreground/50"></div>*/}
+        {/*  </div>*/}
+        {/*  <div className="relative rounded-full border-[1px] p-2 dark:border-t-[2px] dark:border-t-[#353346] dark:bg-[#353346]/70">*/}
+        {/*    <GitBranch className="text-muted-foreground" size={18} />*/}
+        {/*  </div>*/}
+        {/*</div>*/}
       </div>
       <div className="flex flex-col items-center justify-center gap-8">
         <ModeToggle />

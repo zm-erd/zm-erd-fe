@@ -25,12 +25,12 @@ export const ContainerScroll = ({
     };
   }, []);
 
-  const scaleDimensions = () => {
-    return isMobile ? [0.7, 0.9] : [1.05, 1];
-  };
+  // const scaleDimensions = () => {
+  //   return isMobile ? [0.7, 0.9] : [1.05, 1];
+  // };
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
+  // const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
+  // const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
   const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
@@ -45,7 +45,7 @@ export const ContainerScroll = ({
         }}
       >
         <Header translate={translate} titleComponent={titleComponent} />
-        <Card rotate={rotate} translate={translate} scale={scale} />
+        {/*<Card rotate={rotate} translate={translate} scale={scale} />*/}
       </div>
     </div>
   );
