@@ -99,7 +99,7 @@ export const menuOptions = [
   // { name: 'Connections', Component: Category, href: '/connections' },
   // { name: 'Billing', Component: Payment, href: '/billing' },
   // { name: 'Templates', Component: Templates, href: '/templates' },
-  // { name: 'Logs', Component: Logs, href: '/logs' },
+  { name: 'Test', Component: Logs, href: '/test' },
 ];
 
 export const EditorCanvasDefaultCardTypes = {
