@@ -20,6 +20,19 @@ import {
 import '@xyflow/react/dist/style.css';
 import { Button } from '@/components/ui/button';
 
+const DraggableButton = () => {
+  const onDragStart = (event) => {
+    event.dataTransfer.setData('application/reactflow', 'customNode');
+    event.dataTransfer.effectAllowed = 'move';
+  };
+
+  return (
+    <Button draggable onDragStart={onDragStart}>
+      노드생성
+    </Button>
+  );
+};
+
 const initialNodes: Node[] = [
   {
     id: '1',
@@ -69,6 +82,7 @@ CustomNode.displayName = 'CustomNode';
 
 const nodeTypes = {
   custom: CustomNode,
+  customNode: CustomNode, // 추가
 };
 
 const nodeColor = (node: Node) => {
@@ -83,7 +97,7 @@ const nodeColor = (node: Node) => {
 };
 
 const Page = () => {
-  const [nodes, , onNodesChange] = useNodesState(initialNodes);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const onConnect = useCallback(
     (params: Edge | Connection) => setEdges((els) => addEdge(params, els)),
@@ -92,6 +106,50 @@ const Page = () => {
 
   const [variant, setVariant] = useState<BackgroundVariant>(
     BackgroundVariant.Cross,
+  );
+
+  const addNode = () => {
+    const newNode = {
+      id: `${nodes.length + 1}`,
+      data: { label: `Node ${nodes.length + 1}` },
+      position: {
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+      },
+    };
+
+    setNodes((nds) => nds.concat(newNode));
+  };
+
+  const onDragOver = useCallback((event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+  }, []);
+
+  const onDrop = useCallback(
+    (event) => {
+      event.preventDefault();
+
+      const reactFlowBounds = document
+        .querySelector('.react-flow')
+        .getBoundingClientRect();
+      const type = event.dataTransfer.getData('application/reactflow');
+
+      const position = {
+        x: event.clientX - reactFlowBounds.left,
+        y: event.clientY - reactFlowBounds.top,
+      };
+
+      const newNode = {
+        id: `${nodes.length + 1}`,
+        type,
+        position,
+        data: { label: `Node ${nodes.length + 1}` },
+      };
+
+      setNodes((nds) => nds.concat(newNode));
+    },
+    [nodes, setNodes],
   );
 
   return (
@@ -106,6 +164,8 @@ const Page = () => {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
+        onDragOver={onDragOver}
+        onDrop={onDrop}
         fitView
       >
         <Panel position="top-left">
@@ -119,7 +179,9 @@ const Page = () => {
             cross
           </Button>
         </Panel>
-        <Panel position="top-center">top-center</Panel>
+        <Panel position="top-center">
+          <DraggableButton />
+        </Panel>
         <Panel position="top-right">top-right</Panel>
         <Panel position="bottom-left">bottom-left</Panel>
         <Panel position="bottom-center">bottom-center</Panel>
