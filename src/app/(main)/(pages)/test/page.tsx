@@ -71,7 +71,7 @@ const nodeTypes = {
   custom: CustomNode,
 };
 
-const nodeColor = (node) => {
+const nodeColor = (node: { type: any }) => {
   switch (node.type) {
     case 'input':
       return '#6ede87';
