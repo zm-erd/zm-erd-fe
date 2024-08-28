@@ -19,6 +19,8 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { Button } from '@/components/ui/button';
+import { GetMiniMapNodeAttribute } from '@xyflow/react/dist/esm/additional-components/MiniMap/types';
+import { NodeType } from 'yaml/dist/nodes/Node';
 
 const initialNodes: Node[] = [
   {
@@ -71,7 +73,7 @@ const nodeTypes = {
   custom: CustomNode,
 };
 
-const nodeColor = (node: { type: any }) => {
+const nodeColor = (node: GetMiniMapNodeAttribute<NodeType>) => {
   switch (node.type) {
     case 'input':
       return '#6ede87';
