@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   ReactFlow,
   Node,
@@ -12,9 +12,13 @@ import {
   Handle,
   NodeProps,
   Position,
+  MiniMap,
+  Controls,
+  Panel,
+  BackgroundVariant,
 } from '@xyflow/react';
-
 import '@xyflow/react/dist/style.css';
+import { Button } from '@/components/ui/button';
 
 const initialNodes: Node[] = [
   {
@@ -67,12 +71,27 @@ const nodeTypes = {
   custom: CustomNode,
 };
 
+const nodeColor = (node) => {
+  switch (node.type) {
+    case 'input':
+      return '#6ede87';
+    case 'output':
+      return '#6865A5';
+    default:
+      return '#ff0072';
+  }
+};
+
 const Page = () => {
   const [nodes, , onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const onConnect = useCallback(
     (params: Edge | Connection) => setEdges((els) => addEdge(params, els)),
     [setEdges],
+  );
+
+  const [variant, setVariant] = useState<BackgroundVariant>(
+    BackgroundVariant.Cross,
   );
 
   return (
@@ -89,7 +108,25 @@ const Page = () => {
         nodeTypes={nodeTypes}
         fitView
       >
-        <Background />
+        <Panel position="top-left">
+          <Button onClick={() => setVariant(BackgroundVariant.Dots)}>
+            dots
+          </Button>
+          <Button onClick={() => setVariant(BackgroundVariant.Lines)}>
+            lines
+          </Button>
+          <Button onClick={() => setVariant(BackgroundVariant.Cross)}>
+            cross
+          </Button>
+        </Panel>
+        <Panel position="top-center">top-center</Panel>
+        <Panel position="top-right">top-right</Panel>
+        <Panel position="bottom-left">bottom-left</Panel>
+        <Panel position="bottom-center">bottom-center</Panel>
+        <Panel position="bottom-right">bottom-right</Panel>
+        <Background color="#ccc" variant={variant} />
+        <Controls />
+        <MiniMap nodeColor={nodeColor} nodeStrokeWidth={3} zoomable pannable />
       </ReactFlow>
       {/*</ConnectionsProvider>*/}
       {/*</EditorProvider>*/}
