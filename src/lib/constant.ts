@@ -102,6 +102,7 @@ export const menuOptions = [
   { name: 'Test', Component: Logs, href: '/test' },
   { name: 'Test2', Component: Logs, href: '/test2' },
   { name: 'Test3', Component: Logs, href: '/test3' },
+  { name: 'Test4', Component: Logs, href: '/test4' },
 ];
 
 export const EditorCanvasDefaultCardTypes = {
