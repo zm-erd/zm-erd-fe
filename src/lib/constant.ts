@@ -100,6 +100,8 @@ export const menuOptions = [
   // { name: 'Billing', Component: Payment, href: '/billing' },
   // { name: 'Templates', Component: Templates, href: '/templates' },
   { name: 'Test', Component: Logs, href: '/test' },
+  { name: 'Test2', Component: Logs, href: '/test2' },
+  { name: 'Test3', Component: Logs, href: '/test3' },
 ];
 
 export const EditorCanvasDefaultCardTypes = {

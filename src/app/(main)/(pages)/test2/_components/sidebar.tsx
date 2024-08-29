@@ -35,6 +35,13 @@ export default () => {
       >
         Output Node
       </div>
+      <div
+        className="dndnode output"
+        onDragStart={(event) => onDragStart(event, 'output')}
+        draggable
+      >
+        테이블 생성
+      </div>
     </aside>
   );
 };
