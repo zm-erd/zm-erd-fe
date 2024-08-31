@@ -17,6 +17,12 @@ import {
 import '@xyflow/react/dist/style.css';
 import TableNode from './_components/table-node';
 
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '@/components/ui/resizable';
+
 import Sidebar from './_components/sidebar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
@@ -24,6 +30,8 @@ import { DnDProvider, useDnD } from './_components/dnd-context';
 
 import './_components/index.css';
 import './_components/table-node.css';
+import { Button } from '@/components/ui/button';
+import { Plus, Minus, ChevronRight } from 'lucide-react';
 
 const initialNodes = [
   {
@@ -132,10 +140,42 @@ const DnDFlow = () => {
             position="top-right"
             className="m-4 flex h-[calc(100vh-7rem)] max-h-[calc(100vh-7rem)] w-96 flex-col rounded-lg border-2 border-rose-500 bg-white p-1"
           >
-            <Sidebar />
-            <ScrollArea className="h-full w-full rounded-md border p-4">
-              테이블 관리 보드
-            </ScrollArea>
+            <ResizablePanelGroup direction="vertical">
+              <ResizablePanel>
+                <Sidebar />
+              </ResizablePanel>
+              <ResizableHandle withHandle />
+              <ResizablePanel>
+                <ScrollArea className="h-full w-full rounded-md border p-1">
+                  테이블 관리 보드
+                  <div className="flex gap-1">
+                    <div>
+                      <Button
+                        variant="default"
+                        size="icon"
+                        onClick={() => {
+                          alert('컬럼추가');
+                        }}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <div>
+                      <Button
+                        variant="destructive"
+                        size="icon"
+                        onClick={() => {
+                          alert('컬럼삭제');
+                        }}
+                      >
+                        <Minus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                  <div>컬럼트리 영역</div>
+                </ScrollArea>
+              </ResizablePanel>
+            </ResizablePanelGroup>
           </Panel>
         </ReactFlow>
       </div>

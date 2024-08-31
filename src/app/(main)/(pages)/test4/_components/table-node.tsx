@@ -1,7 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { Handle, Position, useReactFlow, useStore } from '@xyflow/react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { useReactFlow, useStore } from '@xyflow/react';
 import {
   Table,
   TableBody,
@@ -11,8 +9,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
-const handleStyle = { left: 10 };
 
 function TableNode({ id, data, isConnectable, selected }) {
   const style = {
@@ -39,14 +35,6 @@ function TableNode({ id, data, isConnectable, selected }) {
 
   return (
     <div style={style}>
-      {/*{isSelected && (*/}
-      {/*  <div className="flex justify-end space-x-2 bg-gray-100 p-2">*/}
-      {/*    <Button size="sm">편집</Button>*/}
-      {/*    <Button size="sm" variant="destructive">*/}
-      {/*      삭제*/}
-      {/*    </Button>*/}
-      {/*  </div>*/}
-      {/*)}*/}
       <Table className="border-collapse">
         <TableCaption>테이블설명</TableCaption>
         <TableHeader>
