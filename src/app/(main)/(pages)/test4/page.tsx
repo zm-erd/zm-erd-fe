@@ -130,8 +130,9 @@ const DnDFlow = () => {
           />
           <Panel
             position="top-right"
-            className="m-4 flex h-[calc(100vh-7rem)] max-h-[calc(100vh-7rem)] w-72 flex-col rounded-lg border-2 border-rose-500 bg-white p-4"
+            className="m-4 flex h-[calc(100vh-7rem)] max-h-[calc(100vh-7rem)] w-96 flex-col rounded-lg border-2 border-rose-500 bg-white p-1"
           >
+            <Sidebar />
             <ScrollArea className="h-full w-full rounded-md border p-4">
               Jokester began sneaking into the castle in the middle of the night
               and leaving jokes all over the place: under the king's pillow, in
