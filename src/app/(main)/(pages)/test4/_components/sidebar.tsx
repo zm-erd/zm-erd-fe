@@ -1,7 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { useDnD } from './dnd-context';
 import { useOnSelectionChange } from '@xyflow/react';
+import { Sheet } from 'lucide-react';
 
+import { Button } from '@/components/ui/button';
 function SelectionDisplay() {
   const [selectedNodes, setSelectedNodes] = useState([]);
   const [selectedEdges, setSelectedEdges] = useState([]);
@@ -34,7 +36,9 @@ export default () => {
   return (
     <div>
       <div onDragStart={(event) => onDragStart(event, 'tableNode')} draggable>
-        테이블 생성
+        <Button>
+          <Sheet className="h-4 w-4" />
+        </Button>
       </div>
       <div>
         <SelectionDisplay />
