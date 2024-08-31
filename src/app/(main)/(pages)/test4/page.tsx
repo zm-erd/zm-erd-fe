@@ -12,6 +12,7 @@ import {
   MiniMap,
   BackgroundVariant,
   Node,
+  useOnSelectionChange,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import TableNode from './_components/table-node';
@@ -21,15 +22,6 @@ import { DnDProvider, useDnD } from './_components/dnd-context';
 
 import './_components/index.css';
 import './_components/table-node.css';
-
-// const initialNodes = [
-//   {
-//     id: '1',
-//     type: 'input',
-//     data: { label: 'input node' },
-//     position: { x: 250, y: 5 },
-//   },
-// ];
 
 const initialNodes = [
   {
@@ -140,6 +132,27 @@ const DnDFlow = () => {
   );
 };
 
+function SelectionDisplay() {
+  const [selectedNodes, setSelectedNodes] = useState([]);
+  const [selectedEdges, setSelectedEdges] = useState([]);
+
+  const onChange = useCallback(({ nodes, edges }) => {
+    setSelectedNodes(nodes.map((node) => node.id));
+    setSelectedEdges(edges.map((edge) => edge.id));
+  }, []);
+
+  useOnSelectionChange({
+    onChange,
+  });
+
+  return (
+    <div>
+      <p>Selected nodes: {selectedNodes.join(', ')}</p>
+      <p>Selected edges: {selectedEdges.join(', ')}</p>
+    </div>
+  );
+}
+
 const Page = () => {
   return (
     <div className="h-full">
@@ -147,6 +160,9 @@ const Page = () => {
         <DnDProvider>
           <DnDFlow />
         </DnDProvider>
+        <div style={{ position: 'absolute', left: 10, top: 10, zIndex: 4 }}>
+          <SelectionDisplay />
+        </div>
       </ReactFlowProvider>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Handle, Position, useReactFlow, useStore } from '@xyflow/react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -14,7 +14,17 @@ import {
 
 const handleStyle = { left: 10 };
 
-function TableNode({ id, data, isConnectable }) {
+function TableNode({ id, data, isConnectable, selected }) {
+  const style = {
+    padding: 10,
+    border: '1px solid #ddd',
+    borderRadius: 5,
+    background: selected ? '#ffe' : '#fff',
+    borderColor: selected ? '#fb0' : '#ddd',
+    boxShadow: selected ? '0 0 10px #fb0' : 'none',
+    transition: 'all 0.3s ease',
+  };
+
   const { setNodes } = useReactFlow();
   const isSelected = useStore(
     useCallback(
@@ -23,18 +33,20 @@ function TableNode({ id, data, isConnectable }) {
     ),
   );
 
+  useEffect(() => {
+    console.log('TableNode', id, selected);
+  }, [id, selected]);
+
   return (
-    <div
-      className={`border border-black bg-white ${isSelected ? 'ring-2 ring-blue-500' : ''}`}
-    >
-      {isSelected && (
-        <div className="flex justify-end space-x-2 bg-gray-100 p-2">
-          <Button size="sm">편집</Button>
-          <Button size="sm" variant="destructive">
-            삭제
-          </Button>
-        </div>
-      )}
+    <div style={style}>
+      {/*{isSelected && (*/}
+      {/*  <div className="flex justify-end space-x-2 bg-gray-100 p-2">*/}
+      {/*    <Button size="sm">편집</Button>*/}
+      {/*    <Button size="sm" variant="destructive">*/}
+      {/*      삭제*/}
+      {/*    </Button>*/}
+      {/*  </div>*/}
+      {/*)}*/}
       <Table className="border-collapse">
         <TableCaption>테이블설명</TableCaption>
         <TableHeader>
