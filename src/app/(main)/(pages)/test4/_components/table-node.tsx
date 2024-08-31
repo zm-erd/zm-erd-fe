@@ -36,41 +36,28 @@ function TableNode({ id, data, isConnectable }) {
         </div>
       )}
       <Table className="border-collapse">
-        <TableCaption>커스텀 테이블 노드 입니다만?</TableCaption>
+        <TableCaption>테이블설명</TableCaption>
         <TableHeader>
-          <TableRow className="border-b border-black">
-            <TableHead colSpan={2} className="w-1/2 border-r border-black">
-              <Input type="text" placeholder="테이블명" className="w-full" />
-            </TableHead>
-            <TableHead colSpan={2} className="w-1/2">
-              <Input type="text" placeholder="테이블설명" className="w-full" />
+          <TableRow className="border-black">
+            <TableHead colSpan={5} className="border-black">
+              테이블명
             </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow className="border-b border-black">
-            <TableCell className="border-r border-black font-medium">
-              키표시(PK, FK)
-            </TableCell>
-            <TableCell className="border-r border-black font-medium">
-              컬럼명
-            </TableCell>
-            <TableCell className="border-r border-black font-medium">
-              컬럼타입
-            </TableCell>
-            <TableCell className="text-right">설명</TableCell>
+          <TableRow className="border-black">
+            <TableCell className="border-black font-medium">PK</TableCell>
+            <TableCell className="border-black font-medium">컬럼</TableCell>
+            <TableCell className="border-black font-medium">코멘트</TableCell>
+            <TableCell className="border-black font-medium">컬럼타입</TableCell>
+            <TableCell className="text-right">NotNull여부</TableCell>
           </TableRow>
-          <TableRow className="border-b border-black">
-            <TableCell className="border-r border-black font-medium">
-              키표시(PK, FK)
-            </TableCell>
-            <TableCell className="border-r border-black font-medium">
-              컬럼명
-            </TableCell>
-            <TableCell className="border-r border-black font-medium">
-              컬럼타입
-            </TableCell>
-            <TableCell className="text-right">설명</TableCell>
+          <TableRow className="border-black">
+            <TableCell className="border-black font-medium">PK</TableCell>
+            <TableCell className="border-black font-medium">컬럼</TableCell>
+            <TableCell className="border-black font-medium">코멘트</TableCell>
+            <TableCell className="border-black font-medium">컬럼타입</TableCell>
+            <TableCell className="text-right">NotNull여부</TableCell>
           </TableRow>
         </TableBody>
       </Table>
