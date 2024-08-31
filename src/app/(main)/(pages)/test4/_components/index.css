@@ -51,7 +51,9 @@
     }
 
     .dndflow aside {
-        width: 20%;
-        max-width: 250px;
+        width: 400px;
+        /*width: 30%;*/
+        /*width: 30%;*/
+        /*max-width: 650px;*/
     }
 }
