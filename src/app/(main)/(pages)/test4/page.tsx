@@ -38,7 +38,20 @@ const initialNodes = [
     id: 'node-1',
     type: 'tableNode',
     position: { x: 0, y: 0 },
-    data: { value: 123 },
+    data: {
+      tableName: '테이블이름1',
+      tableComment: '테이블설명1',
+      columns: [
+        {
+          columnType: 'PK',
+          columnName: '컬럼1',
+          columnComment: '컬럼설명1',
+          columnDataType: 'VARCHAR',
+          notNull: true,
+          sortOrder: 1,
+        },
+      ],
+    },
   },
 ];
 
@@ -141,11 +154,11 @@ const DnDFlow = () => {
             className="m-4 flex h-[calc(100vh-7rem)] max-h-[calc(100vh-7rem)] w-96 flex-col rounded-lg border-2 border-rose-500 bg-white p-1"
           >
             <ResizablePanelGroup direction="vertical">
-              <ResizablePanel>
+              <ResizablePanel defaultSize={25}>
                 <Sidebar />
               </ResizablePanel>
               <ResizableHandle withHandle />
-              <ResizablePanel>
+              <ResizablePanel defaultSize={75}>
                 <ScrollArea className="h-full w-full rounded-md border p-1">
                   테이블 관리 보드
                   <div className="flex gap-1">

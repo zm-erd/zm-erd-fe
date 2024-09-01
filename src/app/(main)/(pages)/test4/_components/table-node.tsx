@@ -36,29 +36,35 @@ function TableNode({ id, data, isConnectable, selected }) {
   return (
     <div style={style}>
       <Table className="border-collapse">
-        <TableCaption>테이블설명</TableCaption>
+        <TableCaption>{data?.tableComment}</TableCaption>
         <TableHeader>
           <TableRow className="border-black">
             <TableHead colSpan={5} className="border-black">
-              테이블명
+              {data?.tableName}
             </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow className="border-black">
-            <TableCell className="border-black font-medium">PK</TableCell>
-            <TableCell className="border-black font-medium">컬럼</TableCell>
-            <TableCell className="border-black font-medium">코멘트</TableCell>
-            <TableCell className="border-black font-medium">컬럼타입</TableCell>
-            <TableCell className="text-right">NotNull여부</TableCell>
-          </TableRow>
-          <TableRow className="border-black">
-            <TableCell className="border-black font-medium">PK</TableCell>
-            <TableCell className="border-black font-medium">컬럼</TableCell>
-            <TableCell className="border-black font-medium">코멘트</TableCell>
-            <TableCell className="border-black font-medium">컬럼타입</TableCell>
-            <TableCell className="text-right">NotNull여부</TableCell>
-          </TableRow>
+          {data &&
+            data.columns.map((column) => (
+              <TableRow key={column.columnName} className="border-black">
+                <TableCell className="border-black">
+                  {column.columnType}
+                </TableCell>
+                <TableCell className="border-black">
+                  {column.columnName}
+                </TableCell>
+                <TableCell className="border-black">
+                  {column.columnComment}
+                </TableCell>
+                <TableCell className="border-black">
+                  {column.columnDataType}
+                </TableCell>
+                <TableCell className="text-right">
+                  {column.notNull ? 'NOT NULL' : 'NULL'}
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </div>
