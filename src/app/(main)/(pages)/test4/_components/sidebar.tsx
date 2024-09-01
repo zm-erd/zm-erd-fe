@@ -3,6 +3,7 @@ import { useDnD } from './dnd-context';
 import { useOnSelectionChange } from '@xyflow/react';
 import { Sheet, Trash2 } from 'lucide-react';
 
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 function SelectionDisplay() {
@@ -27,9 +28,32 @@ function SelectionDisplay() {
 
   return (
     <div>
-      <p>{selectedNode && selectedNode?.data?.tableName}</p>
+      {/*<p>{selectedNode && selectedNode?.data?.tableName}</p>*/}
+      {/*<p>{selectedNode && selectedNode?.data?.tableComment}</p>*/}
       <p>{selectedNode && selectedNode?.id}</p>
       <p>{selectedNode && selectedNode?.type}</p>
+      <p>
+        {selectedNode && (
+          <Input
+            type="email"
+            placeholder="테이블명"
+            value={selectedNode && selectedNode?.data?.tableName}
+            onChange={(e) => {
+              console.log('onChange...');
+              console.log(e.target.value);
+            }}
+          />
+        )}
+      </p>
+      {/*<p>*/}
+      {/*  {selectedNode && (*/}
+      {/*    <Input*/}
+      {/*      type="text"*/}
+      {/*      placeholder="테이블설명"*/}
+      {/*      value={selectedNode && selectedNode?.data?.tableComment}*/}
+      {/*    />*/}
+      {/*  )}*/}
+      {/*</p>*/}
     </div>
   );
 }
