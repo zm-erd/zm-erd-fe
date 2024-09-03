@@ -28,8 +28,6 @@ function SelectionDisplay() {
 
   return (
     <div>
-      {/*<p>{selectedNode && selectedNode?.data?.tableName}</p>*/}
-      {/*<p>{selectedNode && selectedNode?.data?.tableComment}</p>*/}
       <p>{selectedNode && selectedNode?.id}</p>
       <p>{selectedNode && selectedNode?.type}</p>
       <p>
@@ -45,15 +43,6 @@ function SelectionDisplay() {
           />
         )}
       </p>
-      {/*<p>*/}
-      {/*  {selectedNode && (*/}
-      {/*    <Input*/}
-      {/*      type="text"*/}
-      {/*      placeholder="테이블설명"*/}
-      {/*      value={selectedNode && selectedNode?.data?.tableComment}*/}
-      {/*    />*/}
-      {/*  )}*/}
-      {/*</p>*/}
     </div>
   );
 }
