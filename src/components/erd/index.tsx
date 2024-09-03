@@ -5,7 +5,7 @@ import DndFlow from '@/components/erd/dnd-flow';
 
 const Erd = () => {
   return (
-    <div>
+    <div className="h-full">
       <ReactFlowProvider>
         <DnDProvider>
           <DndFlow />
