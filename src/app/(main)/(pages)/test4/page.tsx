@@ -112,7 +112,20 @@ const DnDFlow = () => {
         id: getId(),
         type,
         position,
-        data: { label: `${type} node` },
+        data: {
+          tableName: '테이블이름2',
+          tableComment: '테이블설명2',
+          columns: [
+            {
+              columnType: 'PK',
+              columnName: '컬럼2',
+              columnComment: '컬럼설명2',
+              columnDataType: 'VARCHAR',
+              notNull: true,
+              sortOrder: 1,
+            },
+          ],
+        },
       };
 
       setNodes((nds) => nds.concat(newNode));

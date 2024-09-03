@@ -7,13 +7,13 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 function SelectionDisplay() {
-  // const [selectedNodes, setSelectedNodes] = useState([]);
-  // const [selectedEdges, setSelectedEdges] = useState([]);
+  const [selectedNodes, setSelectedNodes] = useState([]);
+  const [selectedEdges, setSelectedEdges] = useState([]);
   const [selectedNode, setSelectedNode] = useState(null);
 
   const onChange = useCallback(({ nodes, edges }) => {
-    // setSelectedNodes(nodes.map((node) => node.id));
-    // setSelectedEdges(edges.map((edge) => edge.id));
+    setSelectedNodes(nodes.map((node) => node.id));
+    setSelectedEdges(edges.map((edge) => edge.id));
     console.log('onChange...');
     console.log(JSON.stringify(nodes));
 
