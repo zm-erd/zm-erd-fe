@@ -1,89 +1,62 @@
 'use client';
-import React, { useCallback, useState } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import {
   ReactFlow,
-  Node,
+  ReactFlowProvider,
   addEdge,
-  Background,
-  Edge,
-  Connection,
   useNodesState,
   useEdgesState,
-  Handle,
-  NodeProps,
-  Position,
-  MiniMap,
   Controls,
-  Panel,
+  useReactFlow,
+  Background,
+  MiniMap,
   BackgroundVariant,
+  Node,
+  Panel,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
+import TableNode from '../../../../components/erd/nodes/table-node';
+
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '@/components/ui/resizable';
+
+import Sidebar from '../../../../components/erd/sidebar';
+import { ScrollArea } from '@/components/ui/scroll-area';
+
+import { DnDProvider, useDnD } from '../../../../components/erd/dnd-context';
+
+import '../../../../components/erd/index.css';
+import '../../../../components/erd/table-node.css';
 import { Button } from '@/components/ui/button';
+import { Plus, Minus, ChevronRight } from 'lucide-react';
 
-const DraggableButton = () => {
-  const onDragStart = (event) => {
-    event.dataTransfer.setData('application/reactflow', 'customNode');
-    event.dataTransfer.effectAllowed = 'move';
-  };
-
-  return (
-    <Button draggable onDragStart={onDragStart}>
-      노드생성
-    </Button>
-  );
-};
-
-const initialNodes: Node[] = [
+const initialNodes = [
   {
-    id: '1',
-    type: 'input',
-    data: { label: 'Node 1' },
-    position: { x: 250, y: 5 },
-  },
-  { id: '2', data: { label: 'Node 2' }, position: { x: 100, y: 100 } },
-  { id: '3', data: { label: 'Node 3' }, position: { x: 400, y: 100 } },
-  {
-    id: '4',
-    type: 'custom',
-    data: { label: 'Custom Node' },
-    position: { x: 400, y: 200 },
+    id: 'node-1',
+    type: 'tableNode',
+    position: { x: 0, y: 0 },
+    data: {
+      tableName: '테이블이름1',
+      tableComment: '테이블설명1',
+      columns: [
+        {
+          columnType: 'PK',
+          columnName: '컬럼1',
+          columnComment: '컬럼설명1',
+          columnDataType: 'VARCHAR',
+          notNull: true,
+          sortOrder: 1,
+        },
+      ],
+    },
   },
 ];
 
-const initialEdges: Edge[] = [
-  { id: 'e1-2', source: '1', target: '2', animated: true },
-  { id: 'e1-3', source: '1', target: '3' },
-];
-
-const CustomNode = ({
-  data,
-  isConnectable,
-  targetPosition = Position.Top,
-  sourcePosition = Position.Bottom,
-}: NodeProps) => {
-  return (
-    <>
-      <Handle
-        type="target"
-        position={targetPosition}
-        isConnectable={isConnectable}
-      />
-      {data?.label}
-      <Handle
-        type="source"
-        position={sourcePosition}
-        isConnectable={isConnectable}
-      />
-    </>
-  );
-};
-
-CustomNode.displayName = 'CustomNode';
-
-const nodeTypes = {
-  custom: CustomNode,
-  customNode: CustomNode, // 추가
-};
+let id = 0;
+const getId = () => `dndnode_${id++}`;
 
 const nodeColor = (node: Node) => {
   switch (node.type) {
@@ -96,30 +69,23 @@ const nodeColor = (node: Node) => {
   }
 };
 
-const Page = () => {
+const nodeTypes = { tableNode: TableNode };
+
+const DnDFlow = () => {
+  const reactFlowWrapper = useRef(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const onConnect = useCallback(
-    (params: Edge | Connection) => setEdges((els) => addEdge(params, els)),
-    [setEdges],
-  );
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const { screenToFlowPosition } = useReactFlow();
+  const [type] = useDnD();
 
   const [variant, setVariant] = useState<BackgroundVariant>(
     BackgroundVariant.Cross,
   );
 
-  const addNode = () => {
-    const newNode = {
-      id: `${nodes.length + 1}`,
-      data: { label: `Node ${nodes.length + 1}` },
-      position: {
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-      },
-    };
-
-    setNodes((nds) => nds.concat(newNode));
-  };
+  const onConnect = useCallback(
+    (params) => setEdges((eds) => addEdge(params, eds)),
+    [],
+  );
 
   const onDragOver = useCallback((event) => {
     event.preventDefault();
@@ -130,68 +96,127 @@ const Page = () => {
     (event) => {
       event.preventDefault();
 
-      const reactFlowBounds = document
-        .querySelector('.react-flow')
-        .getBoundingClientRect();
-      const type = event.dataTransfer.getData('application/reactflow');
+      // check if the dropped element is valid
+      if (!type) {
+        return;
+      }
 
-      const position = {
-        x: event.clientX - reactFlowBounds.left,
-        y: event.clientY - reactFlowBounds.top,
-      };
-
+      // project was renamed to screenToFlowPosition
+      // and you don't need to subtract the reactFlowBounds.left/top anymore
+      // details: https://reactflow.dev/whats-new/2023-11-10
+      const position = screenToFlowPosition({
+        x: event.clientX,
+        y: event.clientY,
+      });
       const newNode = {
-        id: `${nodes.length + 1}`,
+        id: getId(),
         type,
         position,
-        data: { label: `Node ${nodes.length + 1}` },
+        data: {
+          tableName: '테이블이름2',
+          tableComment: '테이블설명2',
+          columns: [
+            {
+              columnType: 'PK',
+              columnName: '컬럼2',
+              columnComment: '컬럼설명2',
+              columnDataType: 'VARCHAR',
+              notNull: true,
+              sortOrder: 1,
+            },
+          ],
+        },
       };
 
       setNodes((nds) => nds.concat(newNode));
     },
-    [nodes, setNodes],
+    [screenToFlowPosition, type],
   );
 
+  const onSelectionChange = useCallback((elements) => {
+    console.log('Selection changed:', elements);
+  }, []);
+
+  return (
+    <div className="dndflow">
+      <div className="reactflow-wrapper" ref={reactFlowWrapper}>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          onDrop={onDrop}
+          onDragOver={onDragOver}
+          onSelectionChange={onSelectionChange}
+          selectNodesOnDrag={false}
+          nodeTypes={nodeTypes}
+          fitView
+        >
+          <Background color="#ccc" variant={variant} />
+          <Controls position={'top-left'} />
+          <MiniMap
+            nodeColor={nodeColor}
+            nodeStrokeWidth={3}
+            position={'bottom-left'}
+            zoomable
+            pannable
+          />
+          <Panel
+            position="top-right"
+            className="m-4 flex h-[calc(100vh-7rem)] max-h-[calc(100vh-7rem)] w-96 flex-col rounded-lg border-2 border-rose-500 bg-white p-1"
+          >
+            <ResizablePanelGroup direction="vertical">
+              <ResizablePanel defaultSize={25}>
+                <Sidebar />
+              </ResizablePanel>
+              <ResizableHandle withHandle />
+              <ResizablePanel defaultSize={75}>
+                <ScrollArea className="h-full w-full rounded-md border p-1">
+                  테이블 관리 보드
+                  <div className="flex gap-1">
+                    <div>
+                      <Button
+                        variant="default"
+                        size="icon"
+                        onClick={() => {
+                          alert('컬럼추가');
+                        }}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <div>
+                      <Button
+                        variant="destructive"
+                        size="icon"
+                        onClick={() => {
+                          alert('컬럼삭제');
+                        }}
+                      >
+                        <Minus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                  <div>컬럼트리 영역</div>
+                </ScrollArea>
+              </ResizablePanel>
+            </ResizablePanelGroup>
+          </Panel>
+        </ReactFlow>
+      </div>
+    </div>
+  );
+};
+
+const Page = () => {
   return (
     <div className="h-full">
-      {/*<EditorProvider>*/}
-      {/*  <ConnectionsProvider>*/}
-      {/*<EditorCanvas />*/}
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        nodeTypes={nodeTypes}
-        onDragOver={onDragOver}
-        onDrop={onDrop}
-        fitView
-      >
-        <Panel position="top-left">
-          <Button onClick={() => setVariant(BackgroundVariant.Dots)}>
-            dots
-          </Button>
-          <Button onClick={() => setVariant(BackgroundVariant.Lines)}>
-            lines
-          </Button>
-          <Button onClick={() => setVariant(BackgroundVariant.Cross)}>
-            cross
-          </Button>
-        </Panel>
-        <Panel position="top-center">
-          <DraggableButton />
-        </Panel>
-        <Panel position="top-right">top-right</Panel>
-        <Panel position="bottom-left">bottom-left</Panel>
-        <Panel position="bottom-center">bottom-center</Panel>
-        <Panel position="bottom-right">bottom-right</Panel>
-        <Background color="#ccc" variant={variant} />
-        <Controls />
-        <MiniMap nodeColor={nodeColor} nodeStrokeWidth={3} zoomable pannable />
-      </ReactFlow>
-      {/*</ConnectionsProvider>*/}
-      {/*</EditorProvider>*/}
+      <ReactFlowProvider>
+        <DnDProvider>
+          <DnDFlow />
+        </DnDProvider>
+      </ReactFlowProvider>
     </div>
   );
 };
