@@ -14,10 +14,10 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
-// import '@/components/erd/index.css';
-import '@/components/erd/nodes/table-node.css';
+import './dnd-flow.css';
+import '@/components/erd/_components/nodes/table-node.css';
 
-import TableNode from '@/components/erd/nodes/table-node';
+import TableNode from '@/components/erd/_components/nodes/table-node';
 import { useDnD } from '@/components/erd/_components/dnd-context';
 import TopRightPanel from '@/components/erd/_components/top-right-panel';
 
