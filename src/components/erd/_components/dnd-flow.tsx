@@ -15,7 +15,7 @@ import {
 import '@xyflow/react/dist/style.css';
 
 import './dnd-flow.css';
-import '@/components/erd/_components/nodes/table-node.css';
+// import '@/components/erd/_components/nodes/table-node.css';
 
 import TableNode from '@/components/erd/_components/nodes/table-node';
 import { useDnD } from '@/components/erd/_components/dnd-context';

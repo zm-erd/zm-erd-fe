@@ -10,6 +10,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
+import './table-node.css';
+
 function TableNode({ id, data, isConnectable, selected }) {
   const style = {
     padding: 10,
