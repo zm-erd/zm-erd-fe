@@ -100,7 +100,7 @@ export const menuOptions = [
   // { name: 'Billing', Component: Payment, href: '/billing' },
   // { name: 'Templates', Component: Templates, href: '/templates' },
   { name: 'erd', Component: Logs, href: '/erd' },
-  { name: 'Test', Component: Logs, href: '/test' },
+  // { name: 'Test', Component: Logs, href: '/test' },
   // { name: 'Test2', Component: Logs, href: '/test2' },
   // { name: 'Test3', Component: Logs, href: '/test3' },
   // { name: 'Test4', Component: Logs, href: '/test' },

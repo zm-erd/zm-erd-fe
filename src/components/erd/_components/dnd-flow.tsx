@@ -14,12 +14,12 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
-import '@/components/erd/index.css';
-import '@/components/erd/table-node.css';
+// import '@/components/erd/index.css';
+import '@/components/erd/nodes/table-node.css';
 
 import TableNode from '@/components/erd/nodes/table-node';
-import { useDnD } from '@/components/erd/dnd-context';
-import TopRightPanel from '@/components/erd/top-right-panel';
+import { useDnD } from '@/components/erd/_components/dnd-context';
+import TopRightPanel from '@/components/erd/_components/top-right-panel';
 
 const initialNodes = [
   {
@@ -84,14 +84,10 @@ const DndFlow = () => {
     (event) => {
       event.preventDefault();
 
-      // check if the dropped element is valid
       if (!type) {
         return;
       }
 
-      // project was renamed to screenToFlowPosition
-      // and you don't need to subtract the reactFlowBounds.left/top anymore
-      // details: https://reactflow.dev/whats-new/2023-11-10
       const position = screenToFlowPosition({
         x: event.clientX,
         y: event.clientY,
